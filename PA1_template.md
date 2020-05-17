@@ -96,7 +96,7 @@ activity_dailytotal2<- activity_nareplace %>%
                       summarise(total = sum(steps)) %>%
                       ungroup(activity_nareplace) 
         
-hist(activity_dailytotal2$total,xlab = 'total number of steps taken each day',main = 'Histogram of \ntotal number of steps taken each day (NA replaced)',ylim=c(0,35))
+hist(activity_dailytotal2$total,xlab = 'total number of steps taken each day',main = 'Histogram of total number \nof steps taken each day (NA replaced)',ylim=c(0,35))
 rug(activity_dailytotal2$total)
 ```
 

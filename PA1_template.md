@@ -1,7 +1,7 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
 output: 
-  html_document:
+  html_document: 
     keep_md: true
 ---
 
@@ -19,11 +19,11 @@ activity$date<-as.Date(activity$date,"%Y-%m-%d")
 library(dplyr, warn.conflicts=FALSE)
 activity_dailytotal<- activity %>% 
                       group_by(date) %>%
-                      summarise(total = sum(steps,rm.na=TRUE)) %>%
+                      summarise(total = sum(steps,na.rm=TRUE)) %>%
                       ungroup(activity) %>% 
                       na.omit 
 
-hist(activity_dailytotal$total,xlab = 'total number of steps taken each day',main = 'Histogram of \ntotal number of steps taken each day',ylim = c(0,25),breaks=10)
+hist(activity_dailytotal$total,xlab = 'total number of steps taken each day',main = 'Histogram of \ntotal number of steps taken each day',ylim = c(0,35))
 rug(activity_dailytotal$total)
 ```
 
@@ -37,9 +37,9 @@ summary(activity_dailytotal$total)
 
 ```
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##      42    8842   10766   10767   13295   21195
+##       0    6778   10395    9354   12811   21194
 ```
-The mean and median total number of steps taken per day are 1.0767189\times 10^{4} and 1.0766\times 10^{4}.
+The mean and median total number of steps taken per day are 9354.2295082 and 1.0395\times 10^{4}.
 
 ## What is the average daily activity pattern?
 1. Make a time series plot (i.e. `type = "l"`) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
@@ -49,7 +49,7 @@ The mean and median total number of steps taken per day are 1.0767189\times 10^{
 activity_timeseries <- activity %>% 
                       na.omit %>%
                       group_by(interval) %>%
-                      summarise(mean_steps = mean(steps,rm.na=TRUE)) 
+                      summarise(mean_steps = mean(steps,na.rm=TRUE)) 
 
 with(activity_timeseries, plot(interval,mean_steps,type='l',ylab = 'average number of steps taken in 5min intervals',main='time series of average number of steps'))
 ```
@@ -96,7 +96,7 @@ activity_dailytotal2<- activity_nareplace %>%
                       summarise(total = sum(steps)) %>%
                       ungroup(activity_nareplace) 
         
-hist(activity_dailytotal2$total,xlab = 'total number of steps taken each day',main = 'Histogram of \ntotal number of steps taken each day (NA replaced)',ylim=c(0,25),breaks=10)
+hist(activity_dailytotal2$total,xlab = 'total number of steps taken each day',main = 'Histogram of \ntotal number of steps taken each day (NA replaced)',ylim=c(0,35))
 rug(activity_dailytotal2$total)
 ```
 
@@ -112,9 +112,6 @@ summary(activity_dailytotal2$total)
 ##      41    9819   10766   10766   12811   21194
 ```
 
-The mean and median total number of steps taken per day here with this na replace strategy are 1.0766189\times 10^{4} and 1.0766189\times 10^{4}.
-The mean and median of the total number of steps taken per day differ little from the original dataset.
-However, as we compare the two histograms, we notice that frequency of the middle column where the total number of steps between 10000 and 15000 increased. This is because missing values are normally missing at all intervals on a certain day. Here, data are missing from 8 days. Using the replacement strategy here, we basically filled up the eight days with an average day pattern of step number.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 

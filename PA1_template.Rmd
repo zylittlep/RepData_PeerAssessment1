@@ -1,7 +1,7 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
 output: 
-  html_document:
+  html_document: 
     keep_md: true
 ---
 
@@ -17,11 +17,11 @@ activity$date<-as.Date(activity$date,"%Y-%m-%d")
 library(dplyr, warn.conflicts=FALSE)
 activity_dailytotal<- activity %>% 
                       group_by(date) %>%
-                      summarise(total = sum(steps,rm.na=TRUE)) %>%
+                      summarise(total = sum(steps,na.rm=TRUE)) %>%
                       ungroup(activity) %>% 
                       na.omit 
 
-hist(activity_dailytotal$total,xlab = 'total number of steps taken each day',main = 'Histogram of \ntotal number of steps taken each day',ylim = c(0,25),breaks=10)
+hist(activity_dailytotal$total,xlab = 'total number of steps taken each day',main = 'Histogram of \ntotal number of steps taken each day',ylim = c(0,35))
 rug(activity_dailytotal$total)
 ```
 
@@ -38,7 +38,7 @@ The mean and median total number of steps taken per day are `r summary(activity_
 activity_timeseries <- activity %>% 
                       na.omit %>%
                       group_by(interval) %>%
-                      summarise(mean_steps = mean(steps,rm.na=TRUE)) 
+                      summarise(mean_steps = mean(steps,na.rm=TRUE)) 
 
 with(activity_timeseries, plot(interval,mean_steps,type='l',ylab = 'average number of steps taken in 5min intervals',main='time series of average number of steps'))
 ```
@@ -71,7 +71,7 @@ activity_dailytotal2<- activity_nareplace %>%
                       summarise(total = sum(steps)) %>%
                       ungroup(activity_nareplace) 
         
-hist(activity_dailytotal2$total,xlab = 'total number of steps taken each day',main = 'Histogram of \ntotal number of steps taken each day (NA replaced)',ylim=c(0,25),breaks=10)
+hist(activity_dailytotal2$total,xlab = 'total number of steps taken each day',main = 'Histogram of \ntotal number of steps taken each day (NA replaced)',ylim=c(0,35))
 rug(activity_dailytotal2$total)
 ```
 
@@ -79,9 +79,6 @@ rug(activity_dailytotal2$total)
 summary(activity_dailytotal2$total)
 ```
 
-The mean and median total number of steps taken per day here with this na replace strategy are `r summary(activity_dailytotal2$total)[4]` and `r summary(activity_dailytotal2$total)[3]`.
-The mean and median of the total number of steps taken per day differ little from the original dataset.
-However, as we compare the two histograms, we notice that frequency of the middle column where the total number of steps between 10000 and 15000 increased. This is because missing values are normally missing at all intervals on a certain day. Here, data are missing from 8 days. Using the replacement strategy here, we basically filled up the eight days with an average day pattern of step number.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{r comparing activity in weekdays and weekends, echo = TRUE}

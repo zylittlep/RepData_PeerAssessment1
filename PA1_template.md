@@ -27,7 +27,7 @@ hist(activity_dailytotal$total,xlab = 'total number of steps taken each day',mai
 rug(activity_dailytotal$total)
 ```
 
-![](PA1_template_files/figure-html/plotting daily total steps and calculating the mean and median-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
 2. Calculate and report the **mean** and **median** total number of steps taken per day
 
@@ -54,7 +54,7 @@ activity_timeseries <- activity %>%
 with(activity_timeseries, plot(interval,mean_steps,type='l',ylab = 'average number of steps taken in 5min intervals',main='time series of average number of steps'))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -100,7 +100,7 @@ hist(activity_dailytotal2$total,xlab = 'total number of steps taken each day',ma
 rug(activity_dailytotal2$total)
 ```
 
-![](PA1_template_files/figure-html/replace na with interval average-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 
 ```r
@@ -129,7 +129,7 @@ p<-ggplot(data=activity_timeseries_wd,aes(x=interval,y=mean_steps,color=weekday)
 p+geom_line()
 ```
 
-![](PA1_template_files/figure-html/comparing activity in weekdays and weekends-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 The plot indicates that average step number from ~500-~1000 interval is higher in weekdays, whereas the step number from ~1000-~2000 is higher during weekends.
 

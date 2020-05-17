@@ -13,7 +13,7 @@ activity$date<-as.Date(activity$date,"%Y-%m-%d")
 
 ## What is mean total number of steps taken per day?
 1. Make a histogram of the total number of steps taken each day
-```{r plotting daily total steps and calculating the mean and median, echo=TRUE, fig.height=4, fig.width=5}
+```{r, echo=TRUE}
 library(dplyr, warn.conflicts=FALSE)
 activity_dailytotal<- activity %>% 
                       group_by(date) %>%
@@ -34,7 +34,7 @@ The mean and median total number of steps taken per day are `r summary(activity_
 ## What is the average daily activity pattern?
 1. Make a time series plot (i.e. `type = "l"`) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r echo=TRUE, fig.height=4, fig.width=5}
+```{r, echo=TRUE}
 activity_timeseries <- activity %>% 
                       na.omit %>%
                       group_by(interval) %>%
@@ -65,7 +65,7 @@ activity_nareplace <- activity %>%
 
 4. Make a histogram of the total number of steps taken each day and Calculate and report the **mean** and **median** total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-```{r replace na with interval average, echo=TRUE, fig.height=4, fig.width=5}
+```{r, echo=TRUE}
 activity_dailytotal2<- activity_nareplace %>% 
                       group_by(date) %>%
                       summarise(total = sum(steps)) %>%
@@ -81,7 +81,7 @@ summary(activity_dailytotal2$total)
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r comparing activity in weekdays and weekends, echo=TRUE, fig.height=4, fig.width=5}
+```{r, echo=TRUE}
 weekday<-weekdays(activity$date)
 activity$weekday[(weekday!='Saturday') & (weekday!='Sunday')]<-'weekday'
 activity$weekday[(weekday =='Saturday') | (weekday =='Sunday')]<-'weekend'
